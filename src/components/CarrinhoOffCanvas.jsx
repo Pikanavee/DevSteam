@@ -62,11 +62,21 @@ const CarrinhoOffCanvas = (props) => {
                         <button
                           className="btn border-0"
                           disabled={item.quantidade === 1}
+                          onClick={() => {
+                            props.onUpdateCarrinho(item, item.quantidade - 1);
+                          }}
                         >
                           -
                         </button>
                         <span>{item.quantidade}</span>
-                        <button className="btn border-0">+</button>
+                        <button
+                          className="btn border-0"
+                          onClick={() => {
+                            props.onUpdateCarrinho(item, item.quantidade + 1);
+                          }}
+                        >
+                          +
+                        </button>
                       </div>
 
                       <div className="d-flex flex-column align-items-end">
@@ -93,7 +103,10 @@ const CarrinhoOffCanvas = (props) => {
               <strong>Total:</strong>
               <strong>R${total.toFixed(2)}</strong>
             </div>
-            <button className="btn btn-success w-100 mt-2">
+            <button
+              id="addCarrinho"
+              className="btn btn-success desconto border-0 w-100 mt-2 fs-5"
+            >
               Finalizar compra
             </button>
           </>

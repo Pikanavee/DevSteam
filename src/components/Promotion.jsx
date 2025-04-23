@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PromoCard from "./PromoCard";
 
 const Promotion = (props) => {
+  const [aleatorio, setAleatorio] = useState([])
+
   const games = [
+
     {
       id: 1,
       titulo: "Counter-Strike 2",
@@ -69,6 +72,15 @@ const Promotion = (props) => {
     },
   ];
 
+  useEffect(() => {
+    const aleatorioJogos = games
+      .filter((jogo) => jogo.desconto > 0)
+      .sort(() => Math.random() - 0.5) //ordenação aleatória
+      .slice(0, 3);
+
+      setAleatorio(aleatorioJogos);
+  }, []);
+
   return (
     <div id="promotion" className="container w-75 my-5">
       <h2 className="text-uppercase text-center text-md-start ms-md-5 ps-md-3 mb-4">
@@ -79,12 +91,7 @@ const Promotion = (props) => {
         className="d-flex flex-wrap gap-4 justify-content-between"
       >
         {/* mapeando um array com react */}
-        {games
-          .filter((jogo) => jogo.desconto > 0)
-          //.sort((a, b) => b.desconto - a.desconto) //ordenação por desconto decrescente
-          .sort(() => Math.random() - 0.5) //ordenação aleatória
-          .slice(0, 3)
-          .map((jogo) => (
+        {aleatorio.map((jogo) => (
             <PromoCard
               key={jogo.id}
               titulo={jogo.titulo}
